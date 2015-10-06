@@ -1,0 +1,23 @@
+---
+  test: 
+    - 
+      name: "Amazon Test 1"
+      viewport: 
+        width: 1920
+        height: 3840
+      logs: "./data/logs"
+      screenshots: "./data/screenshots"
+      page: 
+        - 
+          name: "Page 1 of Test 1"
+          link: "http://www.amazon.com"
+          step: 
+            - 
+              open: "http://www.amazon.com"
+              find: "#twotabsearchtextbox"
+              type: 
+                - "#twotabsearchtextbox"
+                - "functional javascript"
+              click: "input[class='nav-submit-input']"
+              visible: "h1#breadCrumb"
+              capture: "body"

@@ -1,0 +1,16 @@
+{
+    "name" : "Amazon Search Test",
+    "viewport" : {
+        "width" : 1920,
+        "height" : 1200
+    },
+    "step": [
+  		{"open": "http://www.amazon.com"},
+      {"type": ["#twotabsearchtextbox", "${search}"]},
+      {"click": ".nav-submit-input"},
+      {"get": ["result-count", "#s-result-count", "html()"]},
+  		{"run": ["evaluated", "function(a,b) { return 'I evalualted and stored the return from a client side function,' + a + ',' + b; }", ["baby!", "${search}"]]},
+      {"casper": ["function(courier, casper) { casper.echo('Hello, this is from within Casper.'); }"]},
+      {"capture": "body"}
+    ]
+}
