@@ -36,15 +36,19 @@ console.log ""
 # Loading Libraries
 fs = require "fs"
 system = require "system"
-
 utils = require "utils"
 actions = require "./action"
-courier = require("./utilities").courier()
-parse = require("./utilities").parse
+utilities = require "./utilities"
+courier = utilities.courier()
+parse = utilities.parse
 casper = require("casper").create({ clientScripts: ["lib/jquery.min.js", "lib/lodash.min.js"] }) #{ verbose: true, logLevel: 'debug'})
 _ = require "./lib/lodash.min"
 
-debugger # Entry breakpoint for remote debugging
+console.info("utilities: #{utilities.test()}")
+console.info("actions: #{actions.test()}")
+console.info("courier: #{courier.test()}")
+
+debugger
 
 # Load template and set path arguments
 templatePath = casper.cli.get("template") || "./data/templates/test-template.json"

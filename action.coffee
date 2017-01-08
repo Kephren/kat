@@ -493,9 +493,8 @@ shortHandMapper = (action, courier, casper) ->
       console.error "warning: shorthand '#{k}' action not available."
 
 # Module
-exports.test = ->
-  console.log "Actions module test successful."
 exports.step = (action, courier, casper) ->
   name = getOrElse(action, "action", false)
   if name then fireAction(name, action, courier, casper)
   else shortHandMapper(action, courier, casper)
+exports.test = -> "Actions module loaded successfully."

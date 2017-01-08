@@ -1,5 +1,5 @@
-yaml = require("./lib/yaml")
-_ = require "./lib/lodash.min"
+yaml = require("./lib/yaml.js")
+_ = require "./lib/lodash.min.js"
 
 getDelimiterByExtension = (type) ->
   switch type
@@ -38,6 +38,7 @@ exports.courier = ->
         _result._store = _.defaults(entry, _result._store)
         _result._entry = 1
     dump: -> { "responses": _result._responses, "sets": _result._sets  }
+    test: -> "Courier loaded successfully."
   }
 
 exports.parse = (type, raw, eol) ->
@@ -85,3 +86,4 @@ exports.parse = (type, raw, eol) ->
     else
       console.error "warning: data set was not parsed."
       raw
+exports.test = -> "Utilities module loaded successfully."
