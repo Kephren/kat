@@ -68,3 +68,6 @@ gradle*
 # NetBeans specific files/directories #
 #######################################
 .nbattrs
+
+# Images
+.png

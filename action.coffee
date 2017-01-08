@@ -226,7 +226,7 @@ typeKeys = (action, courier, casper) ->
   casper.then ->
     selector = interpolate(courier, selector)
     text = interpolate(courier, text)
-    message = "Typing '#{text}' in \<#{selector}\>."
+    message = "Selecting /<#{selector}/> and Typing '#{text}' in \<#{selector}\>."
     @echo message
     @wait(500)
     @click selector
