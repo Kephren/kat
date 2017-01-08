@@ -31,8 +31,10 @@ casperFunction = (action, courier, casper) ->
     func = interpolate(courier, func)
     args = _.map(args, (s) -> interpolate(courier, s))
     func = eval("[#{func}][0]")
-    @echo "Applying '#{func}' within Casper."
+    message = "Applying '#{func}' within Casper."
+    @echo message
     func.apply @, ([courier, @]).concat(args)
+    courier.response(message, true, action)
 
 captureScreenShot = (action, courier, casper)->
   selector = getOrElse(action, "select", "body")
@@ -66,8 +68,8 @@ clickElement = (action, courier, casper)->
     message = "Clicking on \<#{selector}\>."
     @echo message
     @click selector
-    courier.response(message, true, action)
     @wait(1000)
+    courier.response(message, true, action)
 
 downloadFile = (action, courier, casper)->
   url = getOrElse(action, "url")
@@ -96,11 +98,16 @@ evaluateFunction = (action, courier, casper) ->
     key = interpolate(courier, key)
     func = interpolate(courier, func)
     args = _.map(args, (s) -> interpolate(courier, s))
-    @echo "Evaluating -> #{func}"
+    message = "Evaluating -> #{func}"
+    @echo message
     func = eval("[#{func}]")
+    courier.response(message, true, action)
     evaluated = @evaluate.apply @, func.concat(args)
-    @echo "Storing '#{key}':'#{evaluated}' from evaluating -> #{func}."
+    message = "Storing '#{key}':'#{evaluated}' from evaluating -> #{func}."
+    @echo message
     courier.store(key, evaluated)
+    courier.response(message, true, action)
+
 
 fillElement = (action, courier, casper) ->
   form = getOrElse(action, "form")
@@ -226,7 +233,7 @@ typeKeys = (action, courier, casper) ->
   casper.then ->
     selector = interpolate(courier, selector)
     text = interpolate(courier, text)
-    message = "Selecting /<#{selector}/> and Typing '#{text}' in \<#{selector}\>."
+    message = "Typing '#{text}' in \<#{selector}\>."
     @echo message
     @wait(500)
     @click selector
