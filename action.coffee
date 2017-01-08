@@ -53,19 +53,19 @@ captureScreenShot = (action, courier, casper)->
     ssp = "#{ssPath}/".replace(////+$///g, "/")
     name = courier.store("name") || "Test"
     fullName = "#{ssp}#{name}-#{ts}.png"
+    message = "Capturing '#{fullName}'."
+    @echo message
     @captureSelector fullName, selector
     @wait(500)
-    message = "Captured '#{fullName}.'"
-    @echo message
     courier.response(message, true, action)
 
 clickElement = (action, courier, casper)->
   selector = getOrElse(action, "select")
   casper.then ->
     selector = interpolate(courier, selector)
-    @click selector
-    message = "Clicked on \<#{selector}\>."
+    message = "Clicking on \<#{selector}\>."
     @echo message
+    @click selector
     courier.response(message, true, action)
     @wait(1000)
 
@@ -73,13 +73,12 @@ downloadFile = (action, courier, casper)->
   url = getOrElse(action, "url")
   path = getOrElse(action, "path")
   casper.then ->
-
     url = interpolate(courier, url)
     path = interpolate(courier, path)
-    message = "Downloading from url \/#{url}\/> to '#{path}'."
+    message = "Downloading from url \/#{url}\/ to '#{path}'."
+    @echo message
     @page.settings.webSecurityEnabled = false;
     @download url, path
-    @echo message
     courier.response(message, true, action)
 
 echoMessage = (action, courier, casper)->
@@ -97,10 +96,11 @@ evaluateFunction = (action, courier, casper) ->
     key = interpolate(courier, key)
     func = interpolate(courier, func)
     args = _.map(args, (s) -> interpolate(courier, s))
+    @echo "Evaluating -> #{func}"
     func = eval("[#{func}]")
     evaluated = @evaluate.apply @, func.concat(args)
+    @echo "Storing '#{key}':'#{evaluated}' from evaluating -> #{func}."
     courier.store(key, evaluated)
-    @echo "Stored '#{key}':'#{evaluated}' from evaluating -> #{func}."
 
 fillElement = (action, courier, casper) ->
   form = getOrElse(action, "form")
@@ -126,11 +126,12 @@ fillElement = (action, courier, casper) ->
       message = "Form field filled \<#{selector}\> with '#{value}'."
     if form is false or !_.isObject(fill)
       message = "Invalid data entry for form or fill values."
+      @echo message
     else
+      @echo message
       @wait 1000
       @fillSelectors form, fill, submit
       @wait 1000
-    @echo message
     courier.response(message, true, action)
 
 openLink = (action, courier, casper) ->
@@ -146,10 +147,10 @@ openLink = (action, courier, casper) ->
       casper.setHttpAuth(user, password)
       @echo "Logging in with '#{user}'."
     url = interpolate(courier, url)
-    @wait(500)
-    @open url
     message = "Opening link to \<#{url}\>."
     @echo message
+    @wait(500)
+    @open url
     courier.response(message, true, action)
 
 setAttribute = (action, courier, casper) ->
@@ -206,9 +207,9 @@ getAttribute = (action, courier, casper) ->
         failed
       , selector, attribute
       if evaluated isnt failed
-        courier.store(key, evaluated)
-        message = "Stored attribute '#{attribute} into '#{key}':'#{evaluated}' from \<#{selector}\>."
+        message = "Storing attribute '#{attribute} into '#{key}':'#{evaluated}' from \<#{selector}\>."
         @echo message
+        courier.store(key, evaluated)
         courier.response(message, true, action)
       else
         @echo failed
@@ -225,13 +226,13 @@ typeKeys = (action, courier, casper) ->
   casper.then ->
     selector = interpolate(courier, selector)
     text = interpolate(courier, text)
+    message = "Typing '#{text}' in \<#{selector}\>."
+    @echo message
     @wait(500)
     @click selector
     @wait(500)
     @sendKeys selector, text, {"reset": true, "modifiers": modifiers}
     @wait(1000)
-    message = "Typing '#{text}' in \<#{selector}\>."
-    @echo message
     courier.response(message, true, action)
 
 waitForEnabled = (action, courier, casper) ->
