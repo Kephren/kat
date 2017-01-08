@@ -50,8 +50,10 @@ console.info("courier: #{courier.test()}")
 
 debugger
 
+casper.echoJson = (what) -> @echo JSON.stringify(what, null, 2)
+
 # Load template and set path arguments
-templatePath = casper.cli.get("template") || "./data/templates/test-template.json"
+templatePath = casper.cli.get("template") || "./data/templates/test-template-deschutes.json"
 setPath = casper.cli.get("set") || "./data/sets/test-set.json"
 logPath = casper.cli.get("logs") || "./data/logs/"
 ssPath = casper.cli.get("screenshots") || "./data/screenshots/"

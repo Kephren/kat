@@ -61,6 +61,14 @@ captureScreenShot = (action, courier, casper)->
     @wait(500)
     courier.response(message, true, action)
 
+clearCache = (action, courier, casper) ->
+  casper.then ->
+    message = "Clearing browser cache."
+    @echo message
+    phantom.clearCookies()
+    @wait(500)
+    courier.response(message, true, action)
+
 clickElement = (action, courier, casper)->
   selector = getOrElse(action, "select")
   casper.then ->
@@ -112,17 +120,18 @@ evaluateFunction = (action, courier, casper) ->
 fillElement = (action, courier, casper) ->
   form = getOrElse(action, "form")
   map = getOrElse(action, "map")
-  submit = getOrElse(action, "submit", "no") is "yes"
+  submit = getOrElse(action, "submit", "yes") is "yes"
   casper.then ->
     fill = {}
     if _.isObject map
       message = []
       i = 0
       l = _.size map
-      _.each map, (value, selector, obj) ->
+      interpolatedMap = _.cloneDeep(map)
+      _.each interpolatedMap, (value, selector, obj) ->
         obj[selector] = interpolate(courier, value) #check for data set information
-      _.extend fill, map
-      _.each map, (value, selector) ->
+      _.extend fill, interpolatedMap
+      _.each fill, (value, selector) ->
         i++;
         message.push "Form field #{i} of #{l} filled \<#{selector}\> with '#{value}'"
       message = message.join("\n") + "."
@@ -374,6 +383,7 @@ fireAction = (name, action, courier, casper) ->
     when "uri" then waitForUrl(action, courier, casper)
     when "visible" then waitForVisibility(action, courier, casper)
     when "wait" then waitForTimeout(action, courier, casper)
+    when "clear" then clearCache(action, courier, casper)
     else
       console.error "Step #{courier.index()}: #{name} is not an available action."
 
@@ -392,6 +402,11 @@ shortHandMapper = (action, courier, casper) ->
         "action": action
         "func": func
         "args": args
+      }
+    clear: (action, perform) ->
+      {
+        "action": action,
+        "perform": perform
       }
     click: (action, select) ->
       {
@@ -422,11 +437,12 @@ shortHandMapper = (action, courier, casper) ->
         "select": select
         "timeout": timeout
       }
-    fill: (action, form, map) ->
+    fill: (action, form, map, submit) ->
       {
         "action": action
         "form": form
-        "map": map
+        "map": map,
+        "submit": submit
       }
     find: (action, select, timeout) ->
       {
@@ -448,12 +464,12 @@ shortHandMapper = (action, courier, casper) ->
         "user": user
         "password": password
       }
-    run: (action, key, func, args) ->
+    run: (action, func, args, key) ->
       {
         "action": action
-        "key": key
         "func": func
         "args": args
+        "key": key
       }
     set: (action, select, attribute, value) ->
       {

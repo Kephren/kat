@@ -1,0 +1,15 @@
+{
+  "name": "Deschutes Search Test",
+  "viewport": {
+    "width": 1920,
+    "height": 1200
+  },
+  "step": [
+    {"clear": true},
+    {"open": "https://www.deschutesbrewery.com/beer-finder/"},
+    {"click": "a.age-gate-yes"},
+    {"fill":  ["#finder", {"#find-loc": "${location}"}]},
+    {"capture": "body"}
+  ]
+}
+

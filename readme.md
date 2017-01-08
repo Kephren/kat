@@ -79,7 +79,7 @@ Each step is a list of objects and the properties must be distinct. This is impo
 - **find: [select, timeout]** - wait until the element exists in the page
 - **get: [key, select, attribute]** - get the attribute value of the specified selector and store it with the given key.
 - **open: [url, user, password]** - open the link with authentication if provided.
-- **run: [key, func, args]** - evaluate and execute the given function within the context of the client/browser.
+- **run: [func, args, key]** - evaluate and execute the given function within the context of the client/browser.
 - **set: [select, attribute, value]** - set a specified selector to a given value in the context of the client/browser.
 - **text: [text, timeout]** - wait until the text is present in the page.
 - **type: [select, text, modifiers]** - input text using key strokes with the text specified.

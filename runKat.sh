@@ -1,1 +1,1 @@
-./casperjs/bin/casperjs kat.coffee --ignore-ssl-errors=yes 
+./casperjs/bin/casperjs  --ssl-protocol=any --ignore-ssl-errors=yes kat.coffee

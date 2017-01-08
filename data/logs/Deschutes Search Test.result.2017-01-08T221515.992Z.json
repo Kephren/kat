@@ -1,0 +1,148 @@
+{
+  "os.name": "linux",
+  "os.version": "unknown",
+  "log": {
+    "responses": [
+      {
+        "id": 0,
+        "set": 1,
+        "entry": 1,
+        "message": "Clearing browser cache.",
+        "success": true,
+        "timestamp": "2017-01-08T22:14:48.813Z",
+        "step": {
+          "action": "clear",
+          "perform": true
+        }
+      },
+      {
+        "id": 1,
+        "set": 1,
+        "entry": 2,
+        "message": "Opening link to <https://www.deschutesbrewery.com/beer-finder/>.",
+        "success": true,
+        "timestamp": "2017-01-08T22:14:49.356Z",
+        "step": {
+          "action": "open",
+          "url": "https://www.deschutesbrewery.com/beer-finder/"
+        }
+      },
+      {
+        "id": 2,
+        "set": 1,
+        "entry": 3,
+        "message": "Clicking on <a.age-gate-yes>.",
+        "success": true,
+        "timestamp": "2017-01-08T22:14:52.323Z",
+        "step": {
+          "action": "click",
+          "select": "a.age-gate-yes"
+        }
+      },
+      {
+        "id": 3,
+        "set": 1,
+        "entry": 4,
+        "message": "Form field 1 of 1 filled <#find-loc> with 'AUSTIN, TX'.",
+        "success": true,
+        "timestamp": "2017-01-08T22:14:53.357Z",
+        "step": {
+          "action": "fill",
+          "form": "#finder",
+          "map": {
+            "#find-loc": "${location}"
+          }
+        }
+      },
+      {
+        "id": 4,
+        "set": 1,
+        "entry": 5,
+        "message": "Capturing './data/screenshots/Deschutes Search Test-2017-01-08T221457.826Z.png'.",
+        "success": true,
+        "timestamp": "2017-01-08T22:14:58.378Z",
+        "step": {
+          "action": "capture",
+          "select": "body"
+        }
+      },
+      {
+        "id": 5,
+        "set": 2,
+        "entry": 1,
+        "message": "Clearing browser cache.",
+        "success": true,
+        "timestamp": "2017-01-08T22:15:01.465Z",
+        "step": {
+          "action": "clear",
+          "perform": true
+        }
+      },
+      {
+        "id": 6,
+        "set": 2,
+        "entry": 2,
+        "message": "Opening link to <https://www.deschutesbrewery.com/beer-finder/>.",
+        "success": true,
+        "timestamp": "2017-01-08T22:15:02.007Z",
+        "step": {
+          "action": "open",
+          "url": "https://www.deschutesbrewery.com/beer-finder/"
+        }
+      },
+      {
+        "id": 7,
+        "set": 2,
+        "entry": 3,
+        "message": "Clicking on <a.age-gate-yes>.",
+        "success": true,
+        "timestamp": "2017-01-08T22:15:04.101Z",
+        "step": {
+          "action": "click",
+          "select": "a.age-gate-yes"
+        }
+      },
+      {
+        "id": 8,
+        "set": 2,
+        "entry": 4,
+        "message": "Form field 1 of 1 filled <#find-loc> with 'LA, CA'.",
+        "success": true,
+        "timestamp": "2017-01-08T22:15:05.136Z",
+        "step": {
+          "action": "fill",
+          "form": "#finder",
+          "map": {
+            "#find-loc": "${location}"
+          }
+        }
+      },
+      {
+        "id": 9,
+        "set": 2,
+        "entry": 5,
+        "message": "Capturing './data/screenshots/Deschutes Search Test-2017-01-08T221512.370Z.png'.",
+        "success": true,
+        "timestamp": "2017-01-08T22:15:12.911Z",
+        "step": {
+          "action": "capture",
+          "select": "body"
+        }
+      }
+    ],
+    "sets": [
+      {
+        "location": "AUSTIN, TX",
+        "logs": "./data/logs/",
+        "name": "Deschutes Search Test",
+        "screenshots": "./data/screenshots/"
+      },
+      {
+        "location": "LA, CA",
+        "logs": "./data/logs/",
+        "name": "Deschutes Search Test",
+        "screenshots": "./data/screenshots/"
+      }
+    ]
+  }
+}
