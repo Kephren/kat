@@ -20,7 +20,7 @@ Currently the program will default to using four directories under *./data*.
 - *./data/templates/* - primary configuration files to be used for testing
 - *./data/logs/* - the result of those test
 - *./data/screenshots/* - screen shots from the tests
-- *./data/sets/* - screen shots from the tests
+- *./data/sets/* - sets of data to feed the templates 
 
 ## Config/Data File Formatting
 
