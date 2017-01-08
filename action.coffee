@@ -223,7 +223,8 @@ getAttribute = (action, courier, casper) ->
         failed
       , selector, attribute
       if evaluated isnt failed
-        message = "Storing attribute '#{attribute} into '#{key}':'#{evaluated}' from \<#{selector}\>."
+        truncatedResult = if evaluated.length < 50 then evaluated else "#{evaluated.substring(0,50)}..."
+        message = "Storing attribute '#{attribute} into '#{key}':'#{truncatedResult}' from \<#{selector}\>."
         @echo message
         courier.store(key, evaluated)
         courier.response(message, true, action)
@@ -450,12 +451,12 @@ shortHandMapper = (action, courier, casper) ->
         "select": select
         "timeout": timeout
       }
-    get: (action, key, select, attribute) ->
+    get: (action, select, attribute, key) ->
       {
         "action": action
-        "key": key
         "select": select
         "attribute": attribute
+        "key": key
       }
     open: (action, url, user, password) ->
       {

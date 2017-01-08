@@ -9,6 +9,7 @@
     {"open": "https://www.deschutesbrewery.com/beer-finder/"},
     {"click": "a.age-gate-yes"},
     {"fill":  ["#finder", {"#find-loc": "${location}"}]},
+    {"get" : ["div.results", "html()", "finderResults"]},
     {"capture": "body"}
   ]
 }
