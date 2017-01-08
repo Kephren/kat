@@ -2,7 +2,7 @@
  * Casper is a navigation utility for PhantomJS.
  *
  * Documentation: http://casperjs.org/
- * Repository:    http://github.com/n1k0/casperjs
+ * Repository:    http://github.com/casperjs/casperjs
  *
  * Copyright (c) 2011-2012 Nicolas Perriault
  *
@@ -35,7 +35,7 @@ var utils = require('utils');
 var system = require('system');
 
 /**
- * Extracts, normalize ad organize PhantomJS CLI arguments in a dedicated
+ * Extracts, normalize and organize PhantomJS CLI arguments in a dedicated
  * Object.
  *
  * @param  array  phantomArgs  system.args value

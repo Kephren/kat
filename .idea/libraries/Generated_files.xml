@@ -1,12 +1,5 @@
 <component name="libraryTable">
   <library name="Generated files" type="javaScript">
-    <properties>
-      <sourceFilesUrls>
-        <item url="file://$PROJECT_DIR$/action.js" />
-        <item url="file://$PROJECT_DIR$/utilities.js" />
-        <item url="file://$PROJECT_DIR$/kat.js" />
-      </sourceFilesUrls>
-    </properties>
     <CLASSES>
       <root url="file://$PROJECT_DIR$/actions.js" />
       <root url="file://$PROJECT_DIR$/actions.js" />
