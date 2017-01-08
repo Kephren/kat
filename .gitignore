@@ -70,4 +70,4 @@ gradle*
 .nbattrs
 
 # Images
-.png
+*.png
