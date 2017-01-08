@@ -13,4 +13,4 @@
       {"casper": ["function(courier, casper) { casper.echo('Hello, this is from within Casper.'); }"]},
       {"capture": "body"}
     ]
-}
+

@@ -20,7 +20,11 @@ Currently the program will default to using four directories under *./data*.
 - *./data/templates/* - primary configuration files to be used for testing
 - *./data/logs/* - the result of those test
 - *./data/screenshots/* - screen shots from the tests
+<<<<<<< HEAD
+- *./data/sets/* - screen shots from the tests
+=======
 - *./data/sets/* - sets of data to feed the templates 
+>>>>>>> 1c2127a892a2ecc782b1f88475c3333bcec47f16
 
 ## Config/Data File Formatting
 
@@ -156,6 +160,9 @@ Also Output this during test,neith will this
 
 ---
 
+<<<<<<< HEAD
+*Copyright (c) 2014 __Kephren Newton__ <kephren.newton@gmail.com>, __BSD Licensed__*
+=======
 ## License
 
 The MIT License (MIT)
@@ -179,3 +186,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+>>>>>>> 1c2127a892a2ecc782b1f88475c3333bcec47f16
