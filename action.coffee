@@ -61,7 +61,7 @@ captureScreenShot = (action, courier, casper)->
     @wait(500)
     courier.response(message, true, action)
 
-clearCache = (action, courier, casper) ->
+clearCookies = (action, courier, casper) ->
   casper.then ->
     message = "Clearing browser cache."
     @echo message
@@ -69,15 +69,48 @@ clearCache = (action, courier, casper) ->
     @wait(500)
     courier.response(message, true, action)
 
-clickElement = (action, courier, casper)->
+createCookie = (action, courier, casper) ->
+  cookie = getOrElse(action, "cookie", {})
+  casper.then ->
+    defaults = {
+      value: true,
+      path: "/",
+      httponly: false,
+      secure: false,
+      expires: (new Date()).getTime() + (1000 * 60 * 60)
+    }
+    message = "Added browser cookie for #{cookie.domain}."
+    @echo message
+    cookie = _.defaults(cookie, defaults)
+    phantom.addCookie(cookie)
+    courier.response(message, true, action)
+
+#clickElement = (action, courier, casper)->
+#  selector = getOrElse(action, "select")
+#  casper.then ->
+#    selector = interpolate(courier, selector)
+#    message = "Clicking on \<#{selector}\>."
+#    @echo message
+#    @click selector
+#    @wait(1000)
+#    courier.response(message, true, action)
+
+clickElement = (action, courier, casper) ->
   selector = getOrElse(action, "select")
+  timeout = getOrElse(action, "timeout", DEFAULT_TIMEOUT)
   casper.then ->
     selector = interpolate(courier, selector)
-    message = "Clicking on \<#{selector}\>."
-    @echo message
-    @click selector
-    @wait(1000)
-    courier.response(message, true, action)
+    @echo "Waiting for element \<#{selector}\>"
+    @waitForSelector selector, ->
+      message = "Clicking on \<#{selector}\>."
+      @click selector
+      @echo message
+      courier.response(message, true, action)
+    , ->
+      message = "Failed to find \<#{selector}\>."
+      @echo message
+      courier.response(message, false, action)
+    , timeout
 
 downloadFile = (action, courier, casper)->
   url = getOrElse(action, "url")
@@ -329,7 +362,7 @@ waitForTimeout = (action, courier, casper) ->
   casper.then ->
     message = "Waiting for #{(timeout / 1000).toFixed(2)} second(s)."
     @echo message
-    courier.response(null, message, true, action)
+    courier.response(message, true, action)
     @wait timeout
 
 waitForUrl = (action, courier, casper) ->
@@ -368,7 +401,9 @@ fireAction = (name, action, courier, casper) ->
   switch name
     when "capture" then captureScreenShot(action, courier, casper)
     when "casper" then casperFunction(action, courier, casper)
+    when "clear" then clearCookies(action, courier, casper)
     when "click" then clickElement(action, courier, casper)
+    when "cookie" then createCookie(action, courier, casper)
     when "disabled" then waitForDisabled(action, courier, casper)
     when "download" then downloadFile(action, courier, casper)
     when "echo" then echoMessage(action, courier, casper)
@@ -384,7 +419,6 @@ fireAction = (name, action, courier, casper) ->
     when "uri" then waitForUrl(action, courier, casper)
     when "visible" then waitForVisibility(action, courier, casper)
     when "wait" then waitForTimeout(action, courier, casper)
-    when "clear" then clearCache(action, courier, casper)
     else
       console.error "Step #{courier.index()}: #{name} is not an available action."
 
@@ -413,6 +447,11 @@ shortHandMapper = (action, courier, casper) ->
       {
         "action": action
         "select": select
+      }
+    cookie: (action, map) ->
+      {
+        "action": action,
+        "cookie": map
       }
     disabled: (action, select, timeout) ->
       {

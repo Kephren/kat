@@ -1,0 +1,17 @@
+{
+  "name": "Lagunitas Search Test",
+  "viewport": {
+    "width": 1920,
+    "height": 1200
+  },
+  "step": [
+    {"cookie": {"domain": "lagunitas.com", "name": "lagunitasOver21"}},
+    {"open": "https://lagunitas.com/beer-finder#"},
+    {"click": "a.text-link.trigger-use-zip"},
+    {"capture": "body"},
+    {"fill": [".form-beer-finder", {"#zipcode": "${postalCode}"}, false]},
+    {"click": "input#search"},
+    {"get": ["div.beer-map-results", "html()", "finderResults"]},
+    {"capture": "body"}
+  ]
+}

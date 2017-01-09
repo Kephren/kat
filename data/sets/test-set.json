@@ -1,4 +1,4 @@
 [
-	{"location": "AUSTIN, TX"},
-	{"location": "LA, CA"}
+	{"location": "AUSTIN, TX", "postalCode": 78753},
+	{"location": "LA, CA", "postalCode": 33020}
 ]
