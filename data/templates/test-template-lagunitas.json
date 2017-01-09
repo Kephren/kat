@@ -5,9 +5,10 @@
     "height": 1200
   },
   "step": [
+    {"clear": true},
     {"cookie": {"domain": "lagunitas.com", "name": "lagunitasOver21"}},
     {"open": "https://lagunitas.com/beer-finder#"},
-    {"click": "a.text-link.trigger-use-zip"},
+    {"clickText": "Or enter a zip code"},
     {"capture": "body"},
     {"fill": [".form-beer-finder", {"#zipcode": "${postalCode}"}, false]},
     {"click": "input#search"},

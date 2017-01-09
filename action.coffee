@@ -79,38 +79,32 @@ createCookie = (action, courier, casper) ->
       secure: false,
       expires: (new Date()).getTime() + (1000 * 60 * 60)
     }
-    message = "Added browser cookie for #{cookie.domain}."
+    cookieWithDefaults = _.defaults(cookie, defaults)
+    message = "Added browser cookie for #{cookieWithDefaults.name}."
     @echo message
-    cookie = _.defaults(cookie, defaults)
-    phantom.addCookie(cookie)
+    phantom.addCookie(cookieWithDefaults)
     courier.response(message, true, action)
 
-#clickElement = (action, courier, casper)->
-#  selector = getOrElse(action, "select")
-#  casper.then ->
-#    selector = interpolate(courier, selector)
-#    message = "Clicking on \<#{selector}\>."
-#    @echo message
-#    @click selector
-#    @wait(1000)
-#    courier.response(message, true, action)
-
-clickElement = (action, courier, casper) ->
+clickElement = (action, courier, casper)->
   selector = getOrElse(action, "select")
-  timeout = getOrElse(action, "timeout", DEFAULT_TIMEOUT)
   casper.then ->
     selector = interpolate(courier, selector)
-    @echo "Waiting for element \<#{selector}\>"
-    @waitForSelector selector, ->
-      message = "Clicking on \<#{selector}\>."
-      @click selector
-      @echo message
-      courier.response(message, true, action)
-    , ->
-      message = "Failed to find \<#{selector}\>."
-      @echo message
-      courier.response(message, false, action)
-    , timeout
+    message = "Clicking on \<#{selector}\>."
+    @echo message
+    @click selector
+    @wait(1000)
+    courier.response(message, true, action)
+
+
+clickText = (action, courier, casper)->
+  text = getOrElse(action, "text")
+  casper.then ->
+    text = interpolate(courier, text)
+    message = "Clicking on text '#{text}'."
+    @echo message
+    @clickLabel text
+    @wait(1000)
+    courier.response(message, true, action)
 
 downloadFile = (action, courier, casper)->
   url = getOrElse(action, "url")
@@ -403,15 +397,16 @@ fireAction = (name, action, courier, casper) ->
     when "casper" then casperFunction(action, courier, casper)
     when "clear" then clearCookies(action, courier, casper)
     when "click" then clickElement(action, courier, casper)
+    when "clickText" then clickText(action, courier, casper)
     when "cookie" then createCookie(action, courier, casper)
     when "disabled" then waitForDisabled(action, courier, casper)
     when "download" then downloadFile(action, courier, casper)
     when "echo" then echoMessage(action, courier, casper)
     when "enabled" then waitForEnabled(action, courier, casper)
-    when "run" then evaluateFunction(action, courier, casper)
     when "find" then waitForSelector(action, courier, casper)
     when "fill" then fillElement(action, courier, casper)
     when "open" then openLink(action, courier, casper)
+    when "run" then evaluateFunction(action, courier, casper)
     when "set" then setAttribute(action, courier, casper)
     when "get" then getAttribute(action, courier, casper)
     when "text" then waitForText(action, courier, casper)
@@ -442,6 +437,11 @@ shortHandMapper = (action, courier, casper) ->
       {
         "action": action,
         "perform": perform
+      }
+    clickText: (action, text) ->
+      {
+        "action": action,
+        "text": text
       }
     click: (action, select) ->
       {
