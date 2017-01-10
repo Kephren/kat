@@ -41,7 +41,7 @@ actions = require "./action"
 utilities = require "./utilities"
 courier = utilities.courier()
 parse = utilities.parse
-casper = require("casper").create({ clientScripts: ["lib/jquery.min.js", "lib/lodash.min.js"] }) #{ verbose: true, logLevel: 'debug'})
+casper = require("casper").create({ exitOnError: false, clientScripts: ["lib/jquery.min.js", "lib/lodash.min.js"] }) #{ verbose: true, logLevel: 'debug'})
 _ = require "./lib/lodash.min"
 
 console.info("utilities: #{utilities.test()}")
@@ -119,6 +119,11 @@ if _.isEmpty(template) is false # Data was loaded, proceed...
         "log": dump
       }
       fs.write "#{lp}#{label}.result.#{ts.replace(///[\:]///g, "")}.json", JSON.stringify(log, null, 2)
+
+  casper.on 'error', (message, backtrace) ->
+    error  = "#{message}:#{backtrace}"
+    console.error error
+    courier.response(message, false)
 
   # Section loops
   setNumber = 0
