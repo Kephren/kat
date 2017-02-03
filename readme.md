@@ -156,14 +156,11 @@ Also Output this during test,neith will this
 
 ---
 
-<<<<<<< HEAD
-*Copyright (c) 2014 __Kephren Newton__ <kephren.newton@gmail.com>, __BSD Licensed__*
-=======
 ## License
 
 The MIT License (MIT)
 
-Copyright (c) 2015 Kephren Newton
+Copyright (c) 2017 Kephren Newton
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -182,4 +179,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
->>>>>>> 1c2127a892a2ecc782b1f88475c3333bcec47f16
